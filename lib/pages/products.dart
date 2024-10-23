@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:k/pages/payment.dart';
 import 'package:k/pages/profile.dart';
+import 'package:k/users.dart';
 
 class Products extends StatelessWidget {
   Map<Product, int> cartItems = {};
@@ -21,7 +22,7 @@ class Products extends StatelessWidget {
         actions: [
           IconButton(
             icon: CircleAvatar(
-              backgroundImage: NetworkImage('https://upload.wikimedia.org/wikipedia/ru/1/1d/%D0%91%D0%B5%D0%B7%D0%BC%D1%8F%D1%82%D0%B5%D0%B6%D0%BD%D0%BE%D1%81%D1%82%D1%8C.png'), // Замените на URL вашей картинки
+              backgroundImage: NetworkImage(currentUser!.avatarUrl), // Замените на URL вашей картинки
             ),
             onPressed: () {
               Navigator.push(

@@ -67,7 +67,6 @@ class Auth extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => Products()),
                       );
                     } else {
-                      // Обработка ошибки авторизации
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('Неверный логин или пароль')),
                       );

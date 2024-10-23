@@ -118,19 +118,13 @@ class Reg extends StatelessWidget {
                     String email = _emailController.text;
                     String password = _passwordController.text;
                     String confirmPassword = _confirmPasswordController.text;
-
-                    // Проверка на совпадение паролей
                     if (password != confirmPassword) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('Пароли не совпадают')),
                       );
-                      return; // Прерываем выполнение, если пароли не совпадают
+                      return;
                     }
-
-                    // Создание нового пользователя с уникальным ID
                     userRepository.createUser (username, email, password, 'https://upload.wikimedia.org/wikipedia/ru/1/1d/%D0%91%D0%B5%D0%B7%D0%BC%D1%8F%D1%82%D0%B5%D0%B6%D0%BD%D0%BE%D1%81%D1%82%D1%8C.png'); // URL по умолчанию
-
-                    // Переход на страницу товаров после успешной регистрации
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => Products()),
