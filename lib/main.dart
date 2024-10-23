@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:k/pages/auth.dart';
 
 void main() {
-  runApp(FlowerShopApp());
+  runApp(ShopApp());
 }
 
-class FlowerShopApp extends StatelessWidget {
+class ShopApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

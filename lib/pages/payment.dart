@@ -71,9 +71,10 @@ class _PaymentPageState extends State<PaymentPage> {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
                     // Process payment here
-                    Navigator.pushReplacement(
+                    Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(builder: (context) => PaymentSuccessPage()),
+                        (Route<dynamic> route) => false,
                     );
                   }
                 },
@@ -114,7 +115,7 @@ class PaymentSuccessPage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: (){Navigator.push(
+              onPressed: (){Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => Products()),
               );},

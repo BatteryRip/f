@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:k/pages/payment.dart';
+import 'package:k/pages/profile.dart';
 
 class Products extends StatelessWidget {
   Map<Product, int> cartItems = {};
@@ -17,6 +18,20 @@ class Products extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Товары'),
+        actions: [
+          IconButton(
+            icon: CircleAvatar(
+              backgroundImage: NetworkImage('https://upload.wikimedia.org/wikipedia/ru/1/1d/%D0%91%D0%B5%D0%B7%D0%BC%D1%8F%D1%82%D0%B5%D0%B6%D0%BD%D0%BE%D1%81%D1%82%D1%8C.png'), // Замените на URL вашей картинки
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfileEdit()),
+              );
+            },
+          ),
+          SizedBox(width: 16),
+        ],
       ),
       body: ListView.builder(
           itemCount: products.length,
@@ -152,7 +167,7 @@ class _ProductCartState extends State<ProductCart> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => PaymentPage()),
                 );

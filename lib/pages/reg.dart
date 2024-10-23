@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:k/pages/products.dart';
 import 'package:k/pages/auth.dart';
+import 'package:k/users.dart';
 
 class Reg extends StatelessWidget {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+  final UserRepository userRepository = UserRepository();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +28,7 @@ class Reg extends StatelessWidget {
                       borderRadius:BorderRadius.circular(20),
                     ),
                     child: TextField(
-                        controller: TextEditingController(),
+                        controller: _usernameController,
                         decoration: InputDecoration(
                             hintText: "Имя",
                             labelText: "Логин",
@@ -39,7 +46,7 @@ class Reg extends StatelessWidget {
                       borderRadius:BorderRadius.circular(20),
                     ),
                     child: TextField(
-                        controller: TextEditingController(),
+                        controller: _emailController,
                         decoration: InputDecoration(
                             hintText: "E-Mail",
                             labelText: "Электронная почта",
@@ -75,7 +82,7 @@ class Reg extends StatelessWidget {
                       borderRadius:BorderRadius.circular(20),
                     ),
                     child: TextField(
-                        controller: TextEditingController(),
+                        controller: _passwordController,
                         obscureText: true,
                         decoration: InputDecoration(
                             hintText: "Введите пароль",
@@ -94,7 +101,7 @@ class Reg extends StatelessWidget {
                       borderRadius:BorderRadius.circular(20),
                     ),
                     child: TextField(
-                        controller: TextEditingController(),
+                        controller: _confirmPasswordController,
                         obscureText: true,
                         decoration: InputDecoration(
                             hintText: "Введите пароль",
@@ -106,23 +113,37 @@ class Reg extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 ElevatedButton(
-                  onPressed: (){Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Products()),
-                  );},
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
+                  onPressed: () {
+                    String username = _usernameController.text;
+                    String email = _emailController.text;
+                    String password = _passwordController.text;
+                    String confirmPassword = _confirmPasswordController.text;
+
+                    // Проверка на совпадение паролей
+                    if (password != confirmPassword) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Пароли не совпадают')),
+                      );
+                      return; // Прерываем выполнение, если пароли не совпадают
+                    }
+
+                    // Создание нового пользователя с уникальным ID
+                    userRepository.createUser (username, email, password, 'https://upload.wikimedia.org/wikipedia/ru/1/1d/%D0%91%D0%B5%D0%B7%D0%BC%D1%8F%D1%82%D0%B5%D0%B6%D0%BD%D0%BE%D1%81%D1%82%D1%8C.png'); // URL по умолчанию
+
+                    // Переход на страницу товаров после успешной регистрации
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => Products()),
+                    );
+                  },
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                    child: Text("Войти"),
+                    child: Text("Зарегистрироваться"),
                   ),
                 ),
                 SizedBox(height: 8),
                 ElevatedButton(
-                  onPressed: (){Navigator.push(
+                  onPressed: (){Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => Auth()),
                   );},

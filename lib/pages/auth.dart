@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:k/pages/products.dart';
 import 'package:k/pages/reg.dart';
+import 'package:k/users.dart';
 
 class Auth extends StatelessWidget {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final UserRepository userRepository = UserRepository();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +26,7 @@ class Auth extends StatelessWidget {
                       borderRadius:BorderRadius.circular(20),
                     ),
                     child: TextField(
-                        controller: TextEditingController(),
+                        controller: _usernameController,
                         decoration: InputDecoration(
                             hintText: "Имя / E-Mail / Телефон",
                             labelText: "Логин",
@@ -39,7 +44,7 @@ class Auth extends StatelessWidget {
                       borderRadius:BorderRadius.circular(20),
                     ),
                     child: TextField(
-                        controller: TextEditingController(),
+                        controller: _passwordController,
                         obscureText: true,
                         decoration: InputDecoration(
                             hintText: "Введите пароль",
@@ -51,15 +56,23 @@ class Auth extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 ElevatedButton(
-                  onPressed: (){Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Products()),
-                  );},
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
+                  onPressed: () {
+                    String username = _usernameController.text;
+                    String password = _passwordController.text;
+
+                    User? user = userRepository.authenticate(username, password);
+                    if (user != null) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Products()),
+                      );
+                    } else {
+                      // Обработка ошибки авторизации
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Неверный логин или пароль')),
+                      );
+                    }
+                  },
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     child: Text("Войти"),
@@ -67,7 +80,7 @@ class Auth extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 ElevatedButton(
-                  onPressed: (){Navigator.push(
+                  onPressed: (){Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => Reg()),
                   );},
