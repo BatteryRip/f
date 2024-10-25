@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:k/pages/payment.dart';
+import 'package:k/pages/productDetails.dart';
 import 'package:k/pages/profile.dart';
 import 'package:k/users.dart';
 
-class Products extends StatelessWidget {
+class Products extends StatefulWidget {
+  @override
+  _ProductsState createState() => _ProductsState();
+}
+
+class _ProductsState extends State<Products> {
   Map<Product, int> cartItems = {};
   List<Product> filteredProducts = products;
   final TextEditingController _searchController = TextEditingController();
@@ -22,6 +28,7 @@ class Products extends StatelessWidget {
     } else {
       filteredProducts = products.where((product) => product.name.toLowerCase().contains(query.toLowerCase())).toList();
     }
+    setState(() {}); // Обновляем состояние после фильтрации
   }
 
   @override
@@ -32,7 +39,7 @@ class Products extends StatelessWidget {
         actions: [
           IconButton(
             icon: CircleAvatar(
-              backgroundImage: NetworkImage(currentUser!.avatarUrl), // Замените на URL вашей картинки
+              backgroundImage: NetworkImage(currentUser !.avatarUrl),
             ),
             onPressed: () {
               Navigator.push(
@@ -48,23 +55,31 @@ class Products extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  child: TextField(
-                    controller: _searchController,
-                    decoration: InputDecoration(
-                      hintText: 'Поиск товаров...',
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      fillColor: Colors.white,
+                  child: Container(
+                    height: 32.0,
+                    child: TextField(
+                      controller: _searchController,
+                      decoration: InputDecoration(
+                        hintText: 'Поиск товаров...',
+                        border: OutlineInputBorder(),
+                        filled: true,
+                        fillColor: Colors.white,
+                        contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 10.0),
+                      ),
+                      onSubmitted: (value) {
+                        _filterProducts(value);
+                      },
                     ),
                   ),
                 ),
                 SizedBox(width: 8),
                 ElevatedButton(
                   onPressed: () {
-                    _filterProducts(_searchController.text);
-                    },
+                    _filterProducts(_searchController.text); // Вызов метода фильтрации
+                  },
                   child: Text('Поиск'),
                 ),
               ],
@@ -81,6 +96,17 @@ class Products extends StatelessWidget {
               trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProductDetails(product: filteredProducts[index]),
+                            ),
+                          );
+                        },
+                        child: Text('?')
+                    ),
                     ElevatedButton(
                       onPressed: () {
                         _addToCart(filteredProducts[index]);
@@ -126,9 +152,11 @@ class Products extends StatelessWidget {
 
 class Product {
   final String name;
+  final String description;
   final double price;
   Product(
       {required this.name,
+        required this.description,
         required this.price,});
 }
 
@@ -233,10 +261,12 @@ class _ProductCartState extends State<ProductCart> {
 final List<Product> products = [
   Product(
     name: 'Товар 1',
+    description: 'BUT THEN I HAD A VERY GOOD IDEA - I USED F5!!!',
     price: 200,
   ),
   Product(
     name: 'Товар 2',
+    description: '',
     price: 155,
   ),
 ];
