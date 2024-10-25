@@ -63,7 +63,8 @@ class Reg extends StatelessWidget {
                       );
                       return;
                     }
-                    userRepository.createUser (username, email, password, 'https://upload.wikimedia.org/wikipedia/ru/1/1d/%D0%91%D0%B5%D0%B7%D0%BC%D1%8F%D1%82%D0%B5%D0%B6%D0%BD%D0%BE%D1%81%D1%82%D1%8C.png'); // URL по умолчанию
+                    userRepository.createUser (username, email, password, 'https://upload.wikimedia.org/wikipedia/ru/1/1d/%D0%91%D0%B5%D0%B7%D0%BC%D1%8F%D1%82%D0%B5%D0%B6%D0%BD%D0%BE%D1%81%D1%82%D1%8C.png');
+                    userRepository.authenticate(username, password);
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => Products()),

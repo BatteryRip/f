@@ -29,7 +29,7 @@ class _ProductsState extends State<Products> {
     } else {
       filteredProducts = products.where((product) => product.name.toLowerCase().contains(query.toLowerCase())).toList();
     }
-    setState(() {}); // Обновляем состояние после фильтрации
+    setState(() {});
   }
 
   @override
@@ -79,7 +79,7 @@ class _ProductsState extends State<Products> {
                 SizedBox(width: 8),
                 ElevatedButton(
                   onPressed: () {
-                    _filterProducts(_searchController.text); // Вызов метода фильтрации
+                    _filterProducts(_searchController.text);
                   },
                   child: Text('Поиск'),
                 ),

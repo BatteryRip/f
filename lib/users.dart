@@ -20,13 +20,13 @@ class UserRepository {
       username: 'admin',
       email: 'user1@example.com',
       password: 'admin',
-      avatarUrl: 'https://upload.wikimedia.org/wikipedia/ru/1/1d/%D0%91%D0%B5%D0%B7%D0%BC%D1%8F%D1%82%D0%B5%D0%B6%D0%BD%D0%BE%D1%81%D1%82%D1%8C.png', // Замените на реальный URL
+      avatarUrl: 'https://upload.wikimedia.org/wikipedia/ru/1/1d/%D0%91%D0%B5%D0%B7%D0%BC%D1%8F%D1%82%D0%B5%D0%B6%D0%BD%D0%BE%D1%81%D1%82%D1%8C.png',
     ),
     User(
       username: 'user2',
       email: 'user2@example.com',
       password: 'password2',
-      avatarUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Tom_Lea_-_2000_Yard_Stare.jpg/800px-Tom_Lea_-_2000_Yard_Stare.jpg', // Замените на реальный URL
+      avatarUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Tom_Lea_-_2000_Yard_Stare.jpg/800px-Tom_Lea_-_2000_Yard_Stare.jpg',
     ),
   ];
 
