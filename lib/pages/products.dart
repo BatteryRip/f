@@ -5,12 +5,22 @@ import 'package:k/users.dart';
 
 class Products extends StatelessWidget {
   Map<Product, int> cartItems = {};
+  List<Product> filteredProducts = products;
+  final TextEditingController _searchController = TextEditingController();
 
   void _addToCart(Product product) {
     if (cartItems.containsKey(product)) {
       cartItems[product] = cartItems[product]! + 1;
     } else {
       cartItems[product] = 1;
+    }
+  }
+
+  void _filterProducts(String query) {
+    if (query.isEmpty) {
+      filteredProducts = products;
+    } else {
+      filteredProducts = products.where((product) => product.name.toLowerCase().contains(query.toLowerCase())).toList();
     }
   }
 
@@ -33,19 +43,47 @@ class Products extends StatelessWidget {
           ),
           SizedBox(width: 16),
         ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(50.0),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      hintText: 'Поиск товаров...',
+                      border: OutlineInputBorder(),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 8),
+                ElevatedButton(
+                  onPressed: () {
+                    _filterProducts(_searchController.text);
+                    },
+                  child: Text('Поиск'),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
       body: ListView.builder(
-          itemCount: products.length,
+          itemCount: filteredProducts.length,
           itemBuilder: (context, index) {
             return ListTile(
-              title: Text(products[index].name),
-              subtitle: Text('${products[index].price.toStringAsFixed(2)} руб.'),
+              title: Text(filteredProducts[index].name),
+              subtitle: Text('${filteredProducts[index].price.toStringAsFixed(2)} руб.'),
               trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     ElevatedButton(
                       onPressed: () {
-                        _addToCart(products[index]);
+                        _addToCart(filteredProducts[index]);
                       },
                       child: Text('+'),
                     )
