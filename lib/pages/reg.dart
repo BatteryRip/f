@@ -3,6 +3,27 @@ import 'package:k/pages/products.dart';
 import 'package:k/pages/auth.dart';
 import 'package:k/users.dart';
 
+Widget _buildTextField(TextEditingController controller, String hint, String label, {bool obscureText = false}) {
+  return Container(
+    width: 300,
+    height: 50,
+    decoration: BoxDecoration(
+      color: Colors.grey[200],
+      borderRadius: BorderRadius.circular(20),
+    ),
+    child: TextField(
+      controller: controller,
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        hintText: hint,
+        labelText: label,
+        border: InputBorder.none,
+        contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
+      ),
+    ),
+  );
+}
+
 class Reg extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -20,97 +41,15 @@ class Reg extends StatelessWidget {
                 Text('Регистрация', style: TextStyle(
                     fontSize: 25
                 )),
-                Container(
-                    width: 300,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius:BorderRadius.circular(20),
-                    ),
-                    child: TextField(
-                        controller: _usernameController,
-                        decoration: InputDecoration(
-                            hintText: "Имя",
-                            labelText: "Логин",
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(horizontal: 20.0)
-                        )
-                    )
-                ),
+                _buildTextField(_usernameController, "Имя", "Логин"),
                 SizedBox(height: 8),
-                Container(
-                    width: 300,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius:BorderRadius.circular(20),
-                    ),
-                    child: TextField(
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                            hintText: "E-Mail",
-                            labelText: "Электронная почта",
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(horizontal: 20.0)
-                        )
-                    )
-                ),
+                _buildTextField(_emailController, "E-Mail", "Электронная почта"),
                 SizedBox(height: 8),
-                Container(
-                    width: 300,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius:BorderRadius.circular(20),
-                    ),
-                    child: TextField(
-                        controller: TextEditingController(),
-                        decoration: InputDecoration(
-                            hintText: "Номер телефона",
-                            labelText: "Телефон",
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(horizontal: 20.0)
-                        )
-                    )
-                ),
+                _buildTextField(TextEditingController(), "Номер телефона", "Телефон"),
                 SizedBox(height: 8),
-                Container(
-                    width: 300,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius:BorderRadius.circular(20),
-                    ),
-                    child: TextField(
-                        controller: _passwordController,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                            hintText: "Введите пароль",
-                            labelText: "Пароль",
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(horizontal: 20.0)
-                        )
-                    )
-                ),
+                _buildTextField(_passwordController, "Введите пароль", "Пароль"),
                 SizedBox(height: 8),
-                Container(
-                    width: 300,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius:BorderRadius.circular(20),
-                    ),
-                    child: TextField(
-                        controller: _confirmPasswordController,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                            hintText: "Введите пароль",
-                            labelText: "Пароль",
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(horizontal: 20.0)
-                        )
-                    )
-                ),
+                _buildTextField(_confirmPasswordController, "Введите пароль", "Пароль"),
                 SizedBox(height: 8),
                 ElevatedButton(
                   onPressed: () {
