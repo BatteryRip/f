@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:k/pages/products.dart';
+import 'package:k/productList.dart';
 
 class ProductDetails extends StatelessWidget {
   final Product product;
@@ -10,7 +10,7 @@ class ProductDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(product.name),
+        title: Text('Информация о товаре'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

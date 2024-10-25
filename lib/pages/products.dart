@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:k/pages/payment.dart';
 import 'package:k/pages/productDetails.dart';
 import 'package:k/pages/profile.dart';
+import 'package:k/productList.dart';
 import 'package:k/users.dart';
 
 class Products extends StatefulWidget {
@@ -150,16 +151,6 @@ class _ProductsState extends State<Products> {
   }
 }
 
-class Product {
-  final String name;
-  final String description;
-  final double price;
-  Product(
-      {required this.name,
-        required this.description,
-        required this.price,});
-}
-
 class ProductCart extends StatefulWidget {
   final Map<Product, int> cartItems;
   ProductCart(this.cartItems);
@@ -257,16 +248,3 @@ class _ProductCartState extends State<ProductCart> {
     );
   }
 }
-
-final List<Product> products = [
-  Product(
-    name: 'Товар 1',
-    description: 'BUT THEN I HAD A VERY GOOD IDEA - I USED F5!!!',
-    price: 200,
-  ),
-  Product(
-    name: 'Товар 2',
-    description: '',
-    price: 155,
-  ),
-];
