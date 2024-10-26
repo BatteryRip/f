@@ -21,6 +21,6 @@ final List<Product> products = [
     name: 'Товар 2',
     description: 'я вообще кто',
     price: 155,
-    pictureUrl: 'https://nklk.ru/dll_image/1028.png'
+    pictureUrl: 'https://cdn.api.kari.com/f/M5357303_001.jpg'
   ),
 ];

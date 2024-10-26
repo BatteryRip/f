@@ -88,36 +88,68 @@ class _ProductsState extends State<Products> {
           ),
         ),
       ),
-      body: ListView.builder(
-          itemCount: filteredProducts.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(filteredProducts[index].name),
-              subtitle: Text('${filteredProducts[index].price.toStringAsFixed(2)} руб.'),
-              trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
+      body: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 4,
+          childAspectRatio: 0.75,
+          crossAxisSpacing: 10.0,
+          mainAxisSpacing: 10.0,
+        ),
+        padding: EdgeInsets.all(10.0),
+        itemCount: filteredProducts.length,
+        itemBuilder: (context, index) {
+          return Card(
+            elevation: 4,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Image.network(
+                  filteredProducts[index].pictureUrl,
+                  height: 150,
+                  fit: BoxFit.cover,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    filteredProducts[index].name,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    '${filteredProducts[index].price.toStringAsFixed(2)} руб.',
+                    style: TextStyle(fontSize: 14, color: Colors.green),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                ButtonBar(
+                  alignment: MainAxisAlignment.center,
+                  children: [
                     ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ProductDetails(product: filteredProducts[index]),
-                            ),
-                          );
-                        },
-                        child: Text('?')
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProductDetails(product: filteredProducts[index]),
+                          ),
+                        );
+                      },
+                      child: Text('?'),
                     ),
                     ElevatedButton(
                       onPressed: () {
                         _addToCart(filteredProducts[index]);
                       },
                       child: Text('+'),
-                    )
-                  ]
-              ),
-            );
-          }
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+        },
       ),
       bottomNavigationBar: BottomAppBar(
         child: Row(
@@ -174,7 +206,13 @@ class _ProductCartState extends State<ProductCart> {
       appBar: AppBar(
         title: Text('Корзина'),
       ),
-      body: ListView.builder(
+      body: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 0.75,
+          crossAxisSpacing: 10.0,
+          mainAxisSpacing: 10.0,
+        ),
         itemCount: widget.cartItems.length,
         itemBuilder: (context, index) {
           Product product = widget.cartItems.keys.elementAt(index);
@@ -208,7 +246,7 @@ class _ProductCartState extends State<ProductCart> {
               ],
             ),
             trailing:
-            Text('\$${(product.price * quantity).toStringAsFixed(2)}'),
+            Text('${(product.price * quantity).toStringAsFixed(2)} руб.'),
           );
         },
       ),
