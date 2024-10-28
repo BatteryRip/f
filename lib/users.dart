@@ -1,8 +1,8 @@
 class User {
-  final String username;
-  final String email;
-  final String password;
-  final String avatarUrl;
+  String username;
+  String email;
+  String password;
+  String avatarUrl;
 
   User({
     required this.username,

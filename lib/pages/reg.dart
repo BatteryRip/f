@@ -3,7 +3,7 @@ import 'package:k/pages/products.dart';
 import 'package:k/pages/auth.dart';
 import 'package:k/users.dart';
 
-Widget _buildTextField(TextEditingController controller, String hint, String label, {bool obscureText = false}) {
+Widget _buildTextField(TextEditingController controller, String hint, String label, bool obscureText) {
   return Container(
     width: 300,
     height: 50,
@@ -41,15 +41,15 @@ class Reg extends StatelessWidget {
                 Text('Регистрация', style: TextStyle(
                     fontSize: 25
                 )),
-                _buildTextField(_usernameController, "Имя", "Логин"),
+                _buildTextField(_usernameController, "Имя", "Логин", false),
                 SizedBox(height: 8),
-                _buildTextField(_emailController, "E-Mail", "Электронная почта"),
+                _buildTextField(_emailController, "E-Mail", "Электронная почта", false),
                 SizedBox(height: 8),
-                _buildTextField(TextEditingController(), "Номер телефона", "Телефон"),
+                _buildTextField(TextEditingController(), "Номер телефона", "Телефон", false),
                 SizedBox(height: 8),
-                _buildTextField(_passwordController, "Введите пароль", "Пароль"),
+                _buildTextField(_passwordController, "Введите пароль", "Пароль", true),
                 SizedBox(height: 8),
-                _buildTextField(_confirmPasswordController, "Введите пароль", "Пароль"),
+                _buildTextField(_confirmPasswordController, "Введите пароль", "Пароль", true),
                 SizedBox(height: 8),
                 ElevatedButton(
                   onPressed: () {
