@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:k/category.dart';
+import 'package:k/pages/categoryFilter.dart';
 import 'package:k/pages/payment.dart';
 import 'package:k/pages/productDetails.dart';
 import 'package:k/pages/profile.dart';
@@ -22,6 +24,8 @@ class _ProductsState extends State<Products> {
       cartItems[product] = 1;
     }
   }
+
+  late List<Category> selectedCategories;
 
   void _filterProducts(String query) {
     if (query.isEmpty) {
@@ -155,6 +159,15 @@ class _ProductsState extends State<Products> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CategoryFilter()),
+                );
+              },
+              child: Text('Выбрать категории'),
+            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
