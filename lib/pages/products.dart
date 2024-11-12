@@ -36,6 +36,13 @@ class _ProductsState extends State<Products> {
     setState(() {});
   }
 
+  void _onSelectedCategoriesChanged(List<Category> categories) {
+    setState(() {
+      selectedCategories = categories;
+      _filterProducts(_searchController.text);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -163,7 +170,7 @@ class _ProductsState extends State<Products> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CategoryFilter()),
+                  MaterialPageRoute(builder: (context) => CategoryFilter(onSelectedCategoriesChanged: _onSelectedCategoriesChanged,)),
                 );
               },
               child: Text('Выбрать категории'),
