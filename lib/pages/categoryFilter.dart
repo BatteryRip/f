@@ -45,6 +45,7 @@ class _CategoryState extends State<CategoryFilter> {
         itemBuilder: (context, index) {
           return ListTile(
             title: Text(categories[index].name),
+            subtitle: Text(categories[index].categoryType.first),
             trailing: Checkbox(
               value: selectedCategories.contains(categories[index]),
               onChanged: (bool? value) {
