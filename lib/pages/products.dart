@@ -25,14 +25,14 @@ class _ProductsState extends State<Products> {
     }
   }
 
-  late List<Category> selectedCategories;
+  late List<Category> selectedCategories = [];
 
   void _filterProducts(String query) {
-    if (query.isEmpty) {
-      filteredProducts = products;
-    } else {
-      filteredProducts = products.where((product) => product.name.toLowerCase().contains(query.toLowerCase())).toList();
-    }
+    filteredProducts = products.where((product) {
+      bool matchesQuery = product.name.toLowerCase().contains(query.toLowerCase());
+      bool matchesCategory = selectedCategories.isEmpty || product.categories.any((category) => selectedCategories.contains(category));
+      return matchesQuery && matchesCategory;
+    }).toList();
     setState(() {});
   }
 
