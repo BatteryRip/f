@@ -17,6 +17,14 @@ class ProductDetails extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Center(
+              child: Image.network(
+                product.pictureUrl,
+                height: 200,
+                fit: BoxFit.cover,
+              ),
+            ),
+            SizedBox(height: 16),
             Text(
               product.name,
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
