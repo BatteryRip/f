@@ -30,7 +30,7 @@ class _ProductsState extends State<Products> {
   void _filterProducts(String query) {
     filteredProducts = products.where((product) {
       bool matchesQuery = product.name.toLowerCase().contains(query.toLowerCase());
-      bool matchesCategory = selectedCategories.isEmpty || product.categories.any((category) => selectedCategories.contains(category));
+      bool matchesCategory = selectedCategories.isEmpty || selectedCategories.every((category) => product.categories.contains(category));
       return matchesQuery && matchesCategory;
     }).toList();
     setState(() {});
