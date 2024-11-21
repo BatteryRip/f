@@ -99,66 +99,71 @@ class _ProductsState extends State<Products> {
           ),
         ),
       ),
-      body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
-          childAspectRatio: 0.75,
-          crossAxisSpacing: 10.0,
-          mainAxisSpacing: 10.0,
-        ),
-        padding: EdgeInsets.all(10.0),
-        itemCount: filteredProducts.length,
-        itemBuilder: (context, index) {
-          return Card(
-            elevation: 4,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Image.network(
-                  filteredProducts[index].pictureUrl,
-                  height: 150,
-                  fit: BoxFit.cover,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    filteredProducts[index].name,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    '${filteredProducts[index].price.toStringAsFixed(2)} руб.',
-                    style: TextStyle(fontSize: 14, color: Colors.green),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                ButtonBar(
-                  alignment: MainAxisAlignment.center,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          int crossAxisCount = (constraints.maxWidth / 200).floor();
+          return GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
+              childAspectRatio: 0.75,
+              crossAxisSpacing: 10.0,
+              mainAxisSpacing: 10.0,
+            ),
+            padding: EdgeInsets.all(10.0),
+            itemCount: filteredProducts.length,
+            itemBuilder: (context, index) {
+              return Card(
+                elevation: 4,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ProductDetails(product: filteredProducts[index]),
-                          ),
-                        );
-                      },
-                      child: Text('?'),
+                    Image.network(
+                      filteredProducts[index].pictureUrl,
+                      height: 150,
+                      fit: BoxFit.cover,
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        _addToCart(filteredProducts[index]);
-                      },
-                      child: Text('+'),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        filteredProducts[index].name,
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        '${filteredProducts[index].price.toStringAsFixed(2)} руб.',
+                        style: TextStyle(fontSize: 14, color: Colors.green),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    ButtonBar(
+                      alignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProductDetails(product: filteredProducts[index]),
+                              ),
+                            );
+                          },
+                          child: Text('?'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            _addToCart(filteredProducts[index]);
+                          },
+                          child: Text('+'),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
+              );
+            },
           );
         },
       ),
