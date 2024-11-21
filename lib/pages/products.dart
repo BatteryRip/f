@@ -231,13 +231,7 @@ class _ProductCartState extends State<ProductCart> {
       appBar: AppBar(
         title: Text('Корзина'),
       ),
-      body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 0.75,
-          crossAxisSpacing: 10.0,
-          mainAxisSpacing: 10.0,
-        ),
+      body: ListView.builder(
         itemCount: widget.cartItems.length,
         itemBuilder: (context, index) {
           Product product = widget.cartItems.keys.elementAt(index);
@@ -271,7 +265,7 @@ class _ProductCartState extends State<ProductCart> {
               ],
             ),
             trailing:
-            Text('${(product.price * quantity).toStringAsFixed(2)} руб.'),
+            Text('\$${(product.price * quantity).toStringAsFixed(2)}'),
           );
         },
       ),
